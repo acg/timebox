@@ -1,3 +1,14 @@
+/*
+ * timebox: run a program for at most M + N seconds.
+ *
+ * M = running period
+ * N = grace period (responding to SIGTERM)
+ *
+ * Copyright Alan Grow <alangrow@gmail.com> 2017.
+ * This is free and unencumbered software released into the public domain.
+ *
+ */
+
 #include <unistd.h>
 #include <sys/time.h>
 #include <sys/types.h>
