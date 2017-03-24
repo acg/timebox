@@ -90,6 +90,7 @@ int main(int argc, char **argv)
   }
 
   kill(pid, SIGTERM);
+  kill(pid, SIGCONT);
 
   while (!done_gracing) {
     struct timeval now;
