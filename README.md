@@ -1,18 +1,27 @@
 # timebox
 ## Run a program for at most M + N seconds
 
-[Timeboxing](https://en.wikipedia.org/wiki/Timeboxing) is a time management technique. Some humans [find it beneficial](https://spin.atomicobject.com/2014/05/03/timeboxing-mitigate-risk/) to start with a fixed time period and size their work to fit. Could machines practice timeboxing too? Maybe. This is a simple C program that can help us find out: it acts as a timebox referee for any program.
+[Timeboxing](https://en.wikipedia.org/wiki/Timeboxing) is a time management technique. Some humans [find it beneficial](https://spin.atomicobject.com/2014/05/03/timeboxing-mitigate-risk/) to start with a fixed time period and size their work to fit.
 
-## Example
+Can machines practice timeboxing too? Sure! That's kind of what an [RTOS does](https://en.wikipedia.org/wiki/Real-time_operating_system). If you want to timebox a regular old unix program though, you'll need something else.
+
+## Silly Example
 
 See how many files can be counted under your home directory in 5-6 seconds:
 
 ```sh
-make
-time ./timebox 5.0 1.0 find ~ | wc -l
+time timebox 5.0 1.0 find ~ | wc -l
 ```
 
 The two numbers `5.0` and `1.0` are the run period and grace period, respectively. If the program doesn't exit before 5 seconds is up, `timebox` sends it `SIGTERM`. If it still hasn't exited after 6 seconds, `timebox` sends it `SIGKILL`.
+
+## Other Applications
+
+- Problems that have "best effort" solutions, like search. Exhaustive searches can take a long time. Perhaps you always want to respond with _something_ within a second. In your search program, print the best result you've found so far when you receive `SIGTERM`. You can run it under `timebox`.
+
+- Suppose you're a cost-constrained cloud user being charged for cpu time. (I mean, who isn't these days?) You want to ~crack a hash~ solve a problem, but can't spend more than $X, even if that means you might not get a solution at all. Timebox it!
+
+- College programming assignments where you a submit source code solution. A grading program compiles, runs, and checks the ouput of your program. But what if your program is naughty and never exits? Or what if you submit a small C++ program that [generates GBs of compiler errors](https://tgceec.tumblr.com/post/74534916370/results-of-the-grand-c-error-explosion?is_related_post=1) which take forever to format and print? Timebox it!
 
 ## Okay But Why
 
