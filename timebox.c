@@ -85,6 +85,7 @@ int main(int argc, char **argv)
     if (rc < 0) sysdie("select error");
     char c;
     ssize_t bytes = read(pipefds[0], &c, 1);
+    if (bytes > 0) die(101, "child wrote to pipe");
     if (!bytes) done_running = 1;
     if (done_running) break;
     if (bytes < 0) sysdie("read error");
