@@ -1,5 +1,5 @@
 # timebox
-## Run a program for at most M + N seconds
+## Politely timebox unix programs
 
 [Timeboxing](https://en.wikipedia.org/wiki/Timeboxing) is a time management technique. Some humans [find it beneficial](https://spin.atomicobject.com/2014/05/03/timeboxing-mitigate-risk/) to start with a fixed time period and size their work to fit. Can machines practice timeboxing too? Sure! That's kind of what an [RTOS does](https://en.wikipedia.org/wiki/Real-time_operating_system). If you want to timebox a regular old unix program though, you'll need something else...
 
