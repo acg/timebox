@@ -81,6 +81,7 @@ int main(int argc, char **argv)
     int rc = select(pipefds[0]+1, &readable, 0, 0, &remaining);
     if (rc == 0) done_running = 1;
     if (done_running) break;
+    if (rc < 0 && (errno == EINTR || errno == EAGAIN)) continue;
     if (rc < 0) sysdie("select error");
     char c;
     ssize_t bytes = read(pipefds[0], &c, 1);
@@ -104,6 +105,7 @@ int main(int argc, char **argv)
     int rc = select(0, 0, 0, 0, &remaining);
     if (rc == 0) done_gracing = 1;
     if (done_gracing) break;
+    if (rc < 0 && (errno == EINTR || errno == EAGAIN)) continue;
     if (rc < 0) sysdie("select error");
   }
 
