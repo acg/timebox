@@ -17,17 +17,8 @@ void sysdie(const char *message);
 int done_running = 0;
 int done_gracing = 0;
 
-void sigint()
-{
-  done_running = 1;
-  done_gracing = 1;
-}
-
-void sigchld()
-{
-  done_gracing = 1;
-}
-
+void sigint()  { done_gracing = done_running = 1; }
+void sigchld() { done_gracing = 1; }
 
 int main(int argc, char **argv)
 {
