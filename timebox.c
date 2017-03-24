@@ -35,9 +35,9 @@ int main(int argc, char **argv)
   struct timeval grace;
 
   timeout.tv_sec  = (time_t)timeout_argument;
-  timeout.tv_usec = (suseconds_t)((long)(timeout_argument * 1000000) % 1000000);
+  timeout.tv_usec = (suseconds_t)(1e6 * (timeout_argument - timeout.tv_sec));
   grace.tv_sec    = (time_t)grace_argument;
-  grace.tv_usec   = (suseconds_t)((long)(grace_argument * 1000000) % 1000000);
+  grace.tv_usec   = (suseconds_t)(1e6 * (grace_argument - grace.tv_sec));
 
   sig_catch(SIGINT, sigint);
 
