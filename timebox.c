@@ -92,7 +92,7 @@ int main(int argc, char **argv)
   struct timeval deadline_running;
   struct timeval deadline_gracing;
 
-  if (!gettimeofday(&started, 0) < 0) sysdie("gettimeofday error");
+  if (gettimeofday(&started, 0) < 0) sysdie("gettimeofday error");
   timeradd(&started,          &timeout, &deadline_running);
   timeradd(&deadline_running, &grace,   &deadline_gracing);
 
@@ -107,7 +107,7 @@ int main(int argc, char **argv)
 
     struct timeval now;
     struct timeval remaining;
-    if (!gettimeofday(&now, 0) < 0) sysdie("gettimeofday error");
+    if (gettimeofday(&now, 0) < 0) sysdie("gettimeofday error");
     timersub(&deadline_running, &now, &remaining);
 
     // Done if deadline has passed (1).
@@ -152,7 +152,7 @@ int main(int argc, char **argv)
 
     struct timeval now;
     struct timeval remaining;
-    if (!gettimeofday(&now, 0) < 0) sysdie("gettimeofday error");
+    if (gettimeofday(&now, 0) < 0) sysdie("gettimeofday error");
     timersub(&deadline_gracing, &now, &remaining);
 
     // Done if deadline has passed.
